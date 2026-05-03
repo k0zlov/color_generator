@@ -29,6 +29,7 @@ Future<void> registerDependencies() async {
   _repositories();
   _useCases();
   _cubits();
+  await getIt.allReady();
 }
 
 void _database() {
@@ -94,21 +95,32 @@ void _useCases() {
 }
 
 void _cubits() {
-  getIt.registerLazySingleton(
-    () => ColorGeneratorCubit(
-      getGeneratedColorsHistoryUseCase: getIt(),
-      saveGeneratedColorUseCase: getIt(),
-      generateColorUseCase: getIt(),
-      clearHistoryUseCase: getIt(),
-      notificationService: getIt(),
-    ),
+  getIt.registerSingletonAsync(
+    () async {
+      final ColorGeneratorCubit cubit = ColorGeneratorCubit(
+        getGeneratedColorsHistoryUseCase: getIt(),
+        saveGeneratedColorUseCase: getIt(),
+        generateColorUseCase: getIt(),
+        clearHistoryUseCase: getIt(),
+        notificationService: getIt(),
+      );
+      await cubit.initialize();
+
+      return cubit;
+    },
   );
 
-  getIt.registerLazySingleton(
-    () => SettingsCubit(
-      notificationService: getIt(),
-      setThemeUseCase: getIt(),
-      getThemeUseCase: getIt(),
-    ),
+  getIt.registerSingletonAsync(
+    () async {
+      final SettingsCubit cubit = SettingsCubit(
+        notificationService: getIt(),
+        setThemeUseCase: getIt(),
+        getThemeUseCase: getIt(),
+      );
+
+      await cubit.initialize();
+
+      return cubit;
+    },
   );
 }

@@ -17,8 +17,8 @@ abstract interface class ScreenFactory {
   static Widget renderApplication() {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<ColorGeneratorCubit>()..initialize()),
-        BlocProvider(create: (_) => getIt<SettingsCubit>()..initialize()),
+        BlocProvider(create: (_) => getIt<ColorGeneratorCubit>()),
+        BlocProvider(create: (_) => getIt<SettingsCubit>()),
       ],
       child: Application(
         notificationService: getIt(),
