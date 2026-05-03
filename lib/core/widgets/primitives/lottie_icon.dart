@@ -32,11 +32,11 @@ class _LottieIconState extends State<LottieIcon>
 
   @override
   Widget build(BuildContext context) {
-    final iconTheme = IconTheme.of(context);
+    final IconThemeData iconTheme = IconTheme.of(context);
 
-    final effectiveSize = widget.size ?? iconTheme.size ?? 22;
+    final double effectiveSize = widget.size ?? iconTheme.size ?? 22;
 
-    final effectiveColor = widget.color ?? iconTheme.color;
+    final Color? effectiveColor = widget.color ?? iconTheme.color;
 
     return LottieBuilder.asset(
       widget.data.path,

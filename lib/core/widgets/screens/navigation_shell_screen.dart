@@ -14,6 +14,11 @@ class NavigationShellScreen extends StatelessWidget {
 
   final StatefulNavigationShell navigationShell;
 
+  static const double _blurSigma = 8.0;
+  static const double _gradientStart = 0.0;
+  static const double _gradientEnd = 0.4;
+  static const double _backdropAlpha = 0.23;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +38,16 @@ class NavigationShellScreen extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.transparent, Colors.black],
-                    stops: [0.0, 0.4],
+                    stops: [_gradientStart, _gradientEnd],
                   ).createShader(bounds);
                 },
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                  filter: ImageFilter.blur(
+                    sigmaX: _blurSigma,
+                    sigmaY: _blurSigma,
+                  ),
                   child: Container(
-                    color: Colors.black.withValues(alpha: 0.23),
+                    color: Colors.black.withValues(alpha: _backdropAlpha),
                   ),
                 ),
               ),
@@ -49,9 +57,8 @@ class NavigationShellScreen extends StatelessWidget {
       ),
       extendBody: true,
       bottomNavigationBar: FloatingBottomAppBar(
-        backgroundColor: Colors.grey,
         currentIndex: navigationShell.currentIndex,
-        items: [
+        items: const [
           FloatingBottomAppBarItemData(
             icon: LottieIcons.home,
             title: 'Generator',

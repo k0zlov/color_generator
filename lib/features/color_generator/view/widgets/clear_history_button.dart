@@ -7,44 +7,48 @@ class ClearHistoryButton extends StatelessWidget {
 
   final VoidCallback onPressed;
 
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = context.theme.colorScheme;
+  void _showConfirmationDialog(BuildContext context) {
+    final ColorScheme colorScheme = context.colorScheme;
 
-    return IconButton(
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              actionsAlignment: MainAxisAlignment.spaceAround,
-              actionsPadding: EdgeInsets.zero,
-              content: const Text('Delete generated colors history?'),
-              actions: [
-                TextButton(
-                  onPressed: () => context.pop(),
-                  child: const Text('No'),
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.spaceAround,
+          actionsPadding: EdgeInsets.zero,
+          content: const Text('Delete generated colors history?'),
+          actions: [
+            TextButton(
+              onPressed: () => dialogContext.pop(),
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                dialogContext.pop();
+                onPressed();
+              },
+              style: ButtonStyle(
+                overlayColor: WidgetStatePropertyAll(
+                  colorScheme.errorContainer,
                 ),
-                TextButton(
-                  onPressed: () {
-                    context.pop();
-                    onPressed();
-                  },
-                  style: ButtonStyle(
-                    overlayColor: WidgetStatePropertyAll(
-                      colorScheme.errorContainer,
-                    ),
-                  ),
-                  child: DefaultTextStyle.merge(
-                    style: TextStyle(color: colorScheme.error),
-                    child: const Text('Yes'),
-                  ),
-                ),
-              ],
-            );
-          },
+              ),
+              child: Text(
+                'Yes',
+                style: TextStyle(color: colorScheme.error),
+              ),
+            ),
+          ],
         );
       },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme colorScheme = context.colorScheme;
+
+    return IconButton(
+      onPressed: () => _showConfirmationDialog(context),
       icon: Icon(Icons.delete, color: colorScheme.error),
     );
   }

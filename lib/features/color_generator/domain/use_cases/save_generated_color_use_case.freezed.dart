@@ -49,7 +49,7 @@ $Res call({
 });
 
 
-$GeneratedColorCopyWith<$Res> get entity;
+
 
 }
 /// @nodoc
@@ -68,16 +68,7 @@ entity: null == entity ? _self.entity : entity // ignore: cast_nullable_to_non_n
 as GeneratedColor,
   ));
 }
-/// Create a copy of SaveGeneratedColorParams
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$GeneratedColorCopyWith<$Res> get entity {
-  
-  return $GeneratedColorCopyWith<$Res>(_self.entity, (value) {
-    return _then(_self.copyWith(entity: value));
-  });
-}
+
 }
 
 
@@ -254,7 +245,7 @@ $Res call({
 });
 
 
-@override $GeneratedColorCopyWith<$Res> get entity;
+
 
 }
 /// @nodoc
@@ -274,16 +265,7 @@ as GeneratedColor,
   ));
 }
 
-/// Create a copy of SaveGeneratedColorParams
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$GeneratedColorCopyWith<$Res> get entity {
-  
-  return $GeneratedColorCopyWith<$Res>(_self.entity, (value) {
-    return _then(_self.copyWith(entity: value));
-  });
-}
+
 }
 
 // dart format on

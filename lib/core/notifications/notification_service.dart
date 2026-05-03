@@ -5,10 +5,10 @@ abstract interface class NotificationService {
 
   void showError(String error);
 
-  void dispose();
+  void close();
 }
 
-class NotificationServiceImpl implements NotificationService {
+final class NotificationServiceImpl implements NotificationService {
   final StreamController<String> _errorController = .new();
 
   @override
@@ -19,9 +19,8 @@ class NotificationServiceImpl implements NotificationService {
     _errorController.add(error);
   }
 
-  // ignore: proper_super_calls
   @override
-  void dispose() {
+  void close() {
     _errorController.close();
   }
 }

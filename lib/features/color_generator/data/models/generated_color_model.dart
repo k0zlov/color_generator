@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:color_generator/features/color_generator/domain/entities/generated_color.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -8,10 +10,7 @@ part 'generated_color_model.g.dart';
 @freezed
 abstract class GeneratedColorModel with _$GeneratedColorModel {
   const factory GeneratedColorModel({
-    required String id,
-    required int red,
-    required int blue,
-    required int green,
+    required int colorARGB32,
     required int createdAtUnix,
   }) = _GeneratedColorModel;
 
@@ -19,10 +18,7 @@ abstract class GeneratedColorModel with _$GeneratedColorModel {
 
   factory GeneratedColorModel.fromEntity(GeneratedColor entity) {
     return GeneratedColorModel(
-      id: entity.id,
-      red: entity.red,
-      blue: entity.blue,
-      green: entity.green,
+      colorARGB32: entity.color.toARGB32(),
       createdAtUnix: entity.createdAt.millisecondsSinceEpoch,
     );
   }
@@ -31,10 +27,7 @@ abstract class GeneratedColorModel with _$GeneratedColorModel {
       _$GeneratedColorModelFromJson(json);
 
   GeneratedColor toEntity() => GeneratedColor(
-    id: id,
-    red: red,
-    blue: blue,
-    green: green,
+    color: Color(colorARGB32),
     createdAt: DateTime.fromMillisecondsSinceEpoch(createdAtUnix),
   );
 }

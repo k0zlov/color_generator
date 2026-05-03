@@ -1,5 +1,4 @@
-import 'package:color_generator/core/theme/extensions/build_context_x.dart';
-import 'package:color_generator/core/widgets/primitives/lottie_icon.dart';
+import 'package:color_generator/core/core.dart';
 import 'package:flutter/material.dart';
 
 class FloatingBottomAppBarItem extends StatelessWidget {
@@ -16,30 +15,35 @@ class FloatingBottomAppBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final motion = context.motion;
+    final MotionTokens motion = context.motion;
 
-    final barTheme = context.theme.bottomNavigationBarTheme;
+    final BottomNavigationBarThemeData barTheme =
+        context.theme.bottomNavigationBarTheme;
 
-    final textStyle = isSelected
-        ? barTheme.selectedLabelStyle
-        : barTheme.unselectedLabelStyle;
+    final TextStyle textStyle =
+        (isSelected
+            ? barTheme.selectedLabelStyle
+            : barTheme.unselectedLabelStyle) ??
+        const TextStyle();
 
-    final iconTheme = isSelected
-        ? barTheme.selectedIconTheme
-        : barTheme.unselectedIconTheme;
+    final IconThemeData iconTheme =
+        (isSelected
+            ? barTheme.selectedIconTheme
+            : barTheme.unselectedIconTheme) ??
+        const IconThemeData.fallback();
 
     return GestureDetector(
       onTap: onPressed,
       behavior: HitTestBehavior.opaque,
       child: IconTheme(
-        data: iconTheme ?? const IconThemeData.fallback(),
+        data: iconTheme,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             LottieIcon(data.icon, animate: isSelected),
             AnimatedDefaultTextStyle(
-              style: textStyle ?? const TextStyle(),
+              style: textStyle,
               duration: motion.durationShort,
               child: Text(data.title),
             ),

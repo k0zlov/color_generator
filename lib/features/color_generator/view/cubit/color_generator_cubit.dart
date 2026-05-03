@@ -28,22 +28,20 @@ class ColorGeneratorCubit extends Cubit<ColorGeneratorState> {
   }) : super(const ColorGeneratorState());
 
   Future<void> initialize() async {
-    final result = await getGeneratedColorsHistoryUseCase(
-      const GetHistoryParams(page: 0),
-    );
+    final Result<List<GeneratedColor>> result =
+        await getGeneratedColorsHistoryUseCase(const GetHistoryParams(page: 0));
 
     result.fold(
-      (_) => notificationService.showError('Could not fetch history.'),
-      (entities) {
-        final sortedList = [...entities]
-          ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-
-        final currentColor = sortedList.firstOrNull;
+      (_) {
+        notificationService.showError('Could not fetch history.');
+      },
+      (List<GeneratedColor> entities) {
+        final GeneratedColor? currentColor = entities.firstOrNull;
 
         emit(
           state.copyWith(
             currentColor: currentColor,
-            history: sortedList.toSet(),
+            history: entities,
           ),
         );
       },
@@ -51,30 +49,29 @@ class ColorGeneratorCubit extends Cubit<ColorGeneratorState> {
   }
 
   Future<void> generateNewColor() async {
-    final result = await generateColorUseCase(NoParams());
+    final Result<GeneratedColor> result = await generateColorUseCase(
+      NoParams(),
+    );
 
     await result.fold(
       (_) {
         notificationService.showError('Could not generate color.');
       },
-      (color) async {
+      (GeneratedColor color) async {
         emit(
           state.copyWith(
             currentColor: color,
-            history: {color, ...state.history},
+            history: [color, ...state.history],
           ),
         );
 
-        final saveResult = await saveGeneratedColorUseCase(
+        final Result<void> saveResult = await saveGeneratedColorUseCase(
           SaveGeneratedColorParams(entity: color),
         );
 
-        saveResult.fold(
-          (_) =>
-              notificationService.showError('Could not save generated color.'),
-          // ignore: no_empty_block
-          (_) {},
-        );
+        if (saveResult.isLeft()) {
+          notificationService.showError('Could not save generated color.');
+        }
       },
     );
   }
@@ -86,16 +83,17 @@ class ColorGeneratorCubit extends Cubit<ColorGeneratorState> {
 
     emit(state.copyWith(isHistoryLoading: true));
 
-    final result = await getGeneratedColorsHistoryUseCase(
-      GetHistoryParams(page: newPage),
-    );
+    final Result<List<GeneratedColor>> result =
+        await getGeneratedColorsHistoryUseCase(
+          GetHistoryParams(page: newPage),
+        );
 
     result.fold(
       (_) {
         emit(state.copyWith(isHistoryLoading: false));
         notificationService.showError('Could not fetch history section.');
       },
-      (entities) {
+      (List<GeneratedColor> entities) {
         if (entities.isEmpty) {
           emit(
             state.copyWith(
@@ -103,29 +101,31 @@ class ColorGeneratorCubit extends Cubit<ColorGeneratorState> {
               isHistoryLoading: false,
             ),
           );
+        } else {
+          final List<GeneratedColor> newHistory = [
+            ...state.history,
+            ...entities,
+          ];
 
-          return;
+          emit(
+            state.copyWith(
+              isHistoryLoading: false,
+              history: newHistory,
+              currentHistoryPage: newPage,
+            ),
+          );
         }
-
-        final List<GeneratedColor> newHistory = [...state.history, ...entities]
-          ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-
-        emit(
-          state.copyWith(
-            isHistoryLoading: false,
-            history: newHistory.toSet(),
-            currentHistoryPage: newPage,
-          ),
-        );
       },
     );
   }
 
   Future<void> clearHistory() async {
-    final result = await clearHistoryUseCase(NoParams());
+    final Result<void> result = await clearHistoryUseCase(NoParams());
 
     result.fold(
-      (_) => notificationService.showError('Could not clear history.'),
+      (_) {
+        notificationService.showError('Could not clear history.');
+      },
       (_) {
         emit(const ColorGeneratorState());
       },

@@ -1,12 +1,15 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class SettingsTheme {
+  final SettingsThemeMode mode;
 
-part 'settings_theme.freezed.dart';
+  const SettingsTheme({this.mode = .system});
 
-@freezed
-abstract class SettingsTheme with _$SettingsTheme {
-  const factory SettingsTheme({
-    @Default(SettingsThemeMode.system) SettingsThemeMode mode,
-  }) = _SettingsTheme;
+  SettingsTheme copyWith({
+    SettingsThemeMode? mode,
+  }) {
+    return SettingsTheme(
+      mode: mode ?? this.mode,
+    );
+  }
 }
 
 enum SettingsThemeMode {

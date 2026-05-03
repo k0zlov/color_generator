@@ -1,19 +1,25 @@
 import 'package:color_generator/core/theme/tokens/motion_tokens.dart';
-import 'package:color_generator/core/theme/tokens/space_tokens.dart';
+import 'package:color_generator/core/theme/tokens/typography_tokens.dart';
 import 'package:flutter/material.dart';
 
 extension BuildContextX on BuildContext {
-  ThemeData get theme => Theme.of(this);
+  T getThemeExtension<T>() {
+    final T? extension = theme.extension<T>();
 
-  TextTheme get textTheme => theme.textTheme;
+    if (extension == null) {
+      throw Exception('Could not find extension $T in Theme.of(context)');
+    }
+
+    return extension;
+  }
+
+  ThemeData get theme => Theme.of(this);
 
   ColorScheme get colorScheme => theme.colorScheme;
 
   MediaQueryData get mediaQuery => MediaQuery.of(this);
 
-  MotionTokens get motion =>
-      theme.extension<MotionTokens>() ?? MotionTokens.regular();
+  MotionTokens get motion => getThemeExtension();
 
-  SpaceTokens get space =>
-      theme.extension<SpaceTokens>() ?? SpaceTokens.regular();
+  TypographyTokens get typography => getThemeExtension();
 }

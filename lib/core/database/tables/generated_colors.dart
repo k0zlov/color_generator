@@ -3,13 +3,9 @@ import 'package:drift/drift.dart';
 
 @UseRowClass(GeneratedColorModel)
 class GeneratedColors extends Table {
-  TextColumn get id => text()();
+  IntColumn get id => integer().autoIncrement()();
 
-  IntColumn get red => integer()();
-
-  IntColumn get blue => integer()();
-
-  IntColumn get green => integer()();
+  IntColumn get colorARGB32 => integer()();
 
   IntColumn get createdAtUnix => integer()();
 }

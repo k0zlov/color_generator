@@ -1,4 +1,4 @@
-import 'package:color_generator/core/navigation/app_router.dart';
+import 'package:color_generator/core/navigation/navigation_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,17 +10,11 @@ abstract interface class NavigationService {
   void goBack<T>([T? result]);
 }
 
-abstract class NavigationRoute {
-  String get path;
+final class NavigationServiceImpl implements NavigationService {
+  final GlobalKey<NavigatorState> navigatorKey;
 
-  Object? get arguments;
-
-  const NavigationRoute();
-}
-
-class NavigationServiceImpl implements NavigationService {
   BuildContext get context {
-    final BuildContext? context = AppRouter.navigatorKey.currentContext;
+    final BuildContext? context = navigatorKey.currentContext;
 
     if (context == null) {
       throw Exception(
@@ -31,6 +25,8 @@ class NavigationServiceImpl implements NavigationService {
 
     return context;
   }
+
+  NavigationServiceImpl({required this.navigatorKey});
 
   @override
   void goBack<T>([T? result]) {

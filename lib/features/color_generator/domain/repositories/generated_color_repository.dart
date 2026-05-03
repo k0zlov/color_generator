@@ -6,7 +6,5 @@ abstract interface class GeneratedColorRepository {
 
   Future<Result<List<GeneratedColor>>> getColors({required int page});
 
-  Future<Result<void>> deleteColor(String id);
-
   Future<Result<int>> deleteAllColors();
 }

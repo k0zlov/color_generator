@@ -11,35 +11,23 @@ class $GeneratedColorsTable extends GeneratedColors
   $GeneratedColorsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
     'id',
     aliasedName,
     false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _redMeta = const VerificationMeta('red');
-  @override
-  late final GeneratedColumn<int> red = GeneratedColumn<int>(
-    'red',
-    aliasedName,
-    false,
+    hasAutoIncrement: true,
     type: DriftSqlType.int,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _blueMeta = const VerificationMeta('blue');
-  @override
-  late final GeneratedColumn<int> blue = GeneratedColumn<int>(
-    'blue',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
+  static const VerificationMeta _colorARGB32Meta = const VerificationMeta(
+    'colorARGB32',
   );
-  static const VerificationMeta _greenMeta = const VerificationMeta('green');
   @override
-  late final GeneratedColumn<int> green = GeneratedColumn<int>(
-    'green',
+  late final GeneratedColumn<int> colorARGB32 = GeneratedColumn<int>(
+    'color_a_r_g_b32',
     aliasedName,
     false,
     type: DriftSqlType.int,
@@ -57,7 +45,7 @@ class $GeneratedColorsTable extends GeneratedColors
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [id, red, blue, green, createdAtUnix];
+  List<GeneratedColumn> get $columns => [id, colorARGB32, createdAtUnix];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -72,32 +60,17 @@ class $GeneratedColorsTable extends GeneratedColors
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
     }
-    if (data.containsKey('red')) {
+    if (data.containsKey('color_a_r_g_b32')) {
       context.handle(
-        _redMeta,
-        red.isAcceptableOrUnknown(data['red']!, _redMeta),
+        _colorARGB32Meta,
+        colorARGB32.isAcceptableOrUnknown(
+          data['color_a_r_g_b32']!,
+          _colorARGB32Meta,
+        ),
       );
     } else if (isInserting) {
-      context.missing(_redMeta);
-    }
-    if (data.containsKey('blue')) {
-      context.handle(
-        _blueMeta,
-        blue.isAcceptableOrUnknown(data['blue']!, _blueMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_blueMeta);
-    }
-    if (data.containsKey('green')) {
-      context.handle(
-        _greenMeta,
-        green.isAcceptableOrUnknown(data['green']!, _greenMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_greenMeta);
+      context.missing(_colorARGB32Meta);
     }
     if (data.containsKey('created_at_unix')) {
       context.handle(
@@ -114,26 +87,14 @@ class $GeneratedColorsTable extends GeneratedColors
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => const {};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   GeneratedColorModel map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return GeneratedColorModel(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      red: attachedDatabase.typeMapping.read(
+      colorARGB32: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
-        data['${effectivePrefix}red'],
-      )!,
-      blue: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}blue'],
-      )!,
-      green: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}green'],
+        data['${effectivePrefix}color_a_r_g_b32'],
       )!,
       createdAtUnix: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
@@ -149,65 +110,41 @@ class $GeneratedColorsTable extends GeneratedColors
 }
 
 class GeneratedColorsCompanion extends UpdateCompanion<GeneratedColorModel> {
-  final Value<String> id;
-  final Value<int> red;
-  final Value<int> blue;
-  final Value<int> green;
+  final Value<int> id;
+  final Value<int> colorARGB32;
   final Value<int> createdAtUnix;
-  final Value<int> rowid;
   const GeneratedColorsCompanion({
     this.id = const Value.absent(),
-    this.red = const Value.absent(),
-    this.blue = const Value.absent(),
-    this.green = const Value.absent(),
+    this.colorARGB32 = const Value.absent(),
     this.createdAtUnix = const Value.absent(),
-    this.rowid = const Value.absent(),
   });
   GeneratedColorsCompanion.insert({
-    required String id,
-    required int red,
-    required int blue,
-    required int green,
+    this.id = const Value.absent(),
+    required int colorARGB32,
     required int createdAtUnix,
-    this.rowid = const Value.absent(),
-  }) : id = Value(id),
-       red = Value(red),
-       blue = Value(blue),
-       green = Value(green),
+  }) : colorARGB32 = Value(colorARGB32),
        createdAtUnix = Value(createdAtUnix);
   static Insertable<GeneratedColorModel> custom({
-    Expression<String>? id,
-    Expression<int>? red,
-    Expression<int>? blue,
-    Expression<int>? green,
+    Expression<int>? id,
+    Expression<int>? colorARGB32,
     Expression<int>? createdAtUnix,
-    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (red != null) 'red': red,
-      if (blue != null) 'blue': blue,
-      if (green != null) 'green': green,
+      if (colorARGB32 != null) 'color_a_r_g_b32': colorARGB32,
       if (createdAtUnix != null) 'created_at_unix': createdAtUnix,
-      if (rowid != null) 'rowid': rowid,
     });
   }
 
   GeneratedColorsCompanion copyWith({
-    Value<String>? id,
-    Value<int>? red,
-    Value<int>? blue,
-    Value<int>? green,
+    Value<int>? id,
+    Value<int>? colorARGB32,
     Value<int>? createdAtUnix,
-    Value<int>? rowid,
   }) {
     return GeneratedColorsCompanion(
       id: id ?? this.id,
-      red: red ?? this.red,
-      blue: blue ?? this.blue,
-      green: green ?? this.green,
+      colorARGB32: colorARGB32 ?? this.colorARGB32,
       createdAtUnix: createdAtUnix ?? this.createdAtUnix,
-      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -215,22 +152,13 @@ class GeneratedColorsCompanion extends UpdateCompanion<GeneratedColorModel> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<String>(id.value);
+      map['id'] = Variable<int>(id.value);
     }
-    if (red.present) {
-      map['red'] = Variable<int>(red.value);
-    }
-    if (blue.present) {
-      map['blue'] = Variable<int>(blue.value);
-    }
-    if (green.present) {
-      map['green'] = Variable<int>(green.value);
+    if (colorARGB32.present) {
+      map['color_a_r_g_b32'] = Variable<int>(colorARGB32.value);
     }
     if (createdAtUnix.present) {
       map['created_at_unix'] = Variable<int>(createdAtUnix.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
@@ -239,11 +167,8 @@ class GeneratedColorsCompanion extends UpdateCompanion<GeneratedColorModel> {
   String toString() {
     return (StringBuffer('GeneratedColorsCompanion(')
           ..write('id: $id, ')
-          ..write('red: $red, ')
-          ..write('blue: $blue, ')
-          ..write('green: $green, ')
-          ..write('createdAtUnix: $createdAtUnix, ')
-          ..write('rowid: $rowid')
+          ..write('colorARGB32: $colorARGB32, ')
+          ..write('createdAtUnix: $createdAtUnix')
           ..write(')'))
         .toString();
   }
@@ -264,21 +189,15 @@ abstract class _$Database extends GeneratedDatabase {
 
 typedef $$GeneratedColorsTableCreateCompanionBuilder =
     GeneratedColorsCompanion Function({
-      required String id,
-      required int red,
-      required int blue,
-      required int green,
+      Value<int> id,
+      required int colorARGB32,
       required int createdAtUnix,
-      Value<int> rowid,
     });
 typedef $$GeneratedColorsTableUpdateCompanionBuilder =
     GeneratedColorsCompanion Function({
-      Value<String> id,
-      Value<int> red,
-      Value<int> blue,
-      Value<int> green,
+      Value<int> id,
+      Value<int> colorARGB32,
       Value<int> createdAtUnix,
-      Value<int> rowid,
     });
 
 class $$GeneratedColorsTableFilterComposer
@@ -290,23 +209,13 @@ class $$GeneratedColorsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
+  ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get red => $composableBuilder(
-    column: $table.red,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get blue => $composableBuilder(
-    column: $table.blue,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get green => $composableBuilder(
-    column: $table.green,
+  ColumnFilters<int> get colorARGB32 => $composableBuilder(
+    column: $table.colorARGB32,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -325,23 +234,13 @@ class $$GeneratedColorsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
+  ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get red => $composableBuilder(
-    column: $table.red,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get blue => $composableBuilder(
-    column: $table.blue,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get green => $composableBuilder(
-    column: $table.green,
+  ColumnOrderings<int> get colorARGB32 => $composableBuilder(
+    column: $table.colorARGB32,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -360,17 +259,13 @@ class $$GeneratedColorsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<String> get id =>
+  GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get red =>
-      $composableBuilder(column: $table.red, builder: (column) => column);
-
-  GeneratedColumn<int> get blue =>
-      $composableBuilder(column: $table.blue, builder: (column) => column);
-
-  GeneratedColumn<int> get green =>
-      $composableBuilder(column: $table.green, builder: (column) => column);
+  GeneratedColumn<int> get colorARGB32 => $composableBuilder(
+    column: $table.colorARGB32,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get createdAtUnix => $composableBuilder(
     column: $table.createdAtUnix,
@@ -413,35 +308,23 @@ class $$GeneratedColorsTableTableManager
               $$GeneratedColorsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                Value<String> id = const Value.absent(),
-                Value<int> red = const Value.absent(),
-                Value<int> blue = const Value.absent(),
-                Value<int> green = const Value.absent(),
+                Value<int> id = const Value.absent(),
+                Value<int> colorARGB32 = const Value.absent(),
                 Value<int> createdAtUnix = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
               }) => GeneratedColorsCompanion(
                 id: id,
-                red: red,
-                blue: blue,
-                green: green,
+                colorARGB32: colorARGB32,
                 createdAtUnix: createdAtUnix,
-                rowid: rowid,
               ),
           createCompanionCallback:
               ({
-                required String id,
-                required int red,
-                required int blue,
-                required int green,
+                Value<int> id = const Value.absent(),
+                required int colorARGB32,
                 required int createdAtUnix,
-                Value<int> rowid = const Value.absent(),
               }) => GeneratedColorsCompanion.insert(
                 id: id,
-                red: red,
-                blue: blue,
-                green: green,
+                colorARGB32: colorARGB32,
                 createdAtUnix: createdAtUnix,
-                rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

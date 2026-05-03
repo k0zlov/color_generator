@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ColorGeneratorState {
 
- int get currentHistoryPage; GeneratedColor? get currentColor; bool get isHistoryLoading; bool get historyReachedMax; Set<GeneratedColor> get history;
+ int get currentHistoryPage; GeneratedColor? get currentColor; bool get isHistoryLoading; bool get historyReachedMax; List<GeneratedColor> get history;
 /// Create a copy of ColorGeneratorState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,11 +45,11 @@ abstract mixin class $ColorGeneratorStateCopyWith<$Res>  {
   factory $ColorGeneratorStateCopyWith(ColorGeneratorState value, $Res Function(ColorGeneratorState) _then) = _$ColorGeneratorStateCopyWithImpl;
 @useResult
 $Res call({
- int currentHistoryPage, GeneratedColor? currentColor, bool isHistoryLoading, bool historyReachedMax, Set<GeneratedColor> history
+ int currentHistoryPage, GeneratedColor? currentColor, bool isHistoryLoading, bool historyReachedMax, List<GeneratedColor> history
 });
 
 
-$GeneratedColorCopyWith<$Res>? get currentColor;
+
 
 }
 /// @nodoc
@@ -69,22 +69,10 @@ as int,currentColor: freezed == currentColor ? _self.currentColor : currentColor
 as GeneratedColor?,isHistoryLoading: null == isHistoryLoading ? _self.isHistoryLoading : isHistoryLoading // ignore: cast_nullable_to_non_nullable
 as bool,historyReachedMax: null == historyReachedMax ? _self.historyReachedMax : historyReachedMax // ignore: cast_nullable_to_non_nullable
 as bool,history: null == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
-as Set<GeneratedColor>,
+as List<GeneratedColor>,
   ));
 }
-/// Create a copy of ColorGeneratorState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$GeneratedColorCopyWith<$Res>? get currentColor {
-    if (_self.currentColor == null) {
-    return null;
-  }
 
-  return $GeneratedColorCopyWith<$Res>(_self.currentColor!, (value) {
-    return _then(_self.copyWith(currentColor: value));
-  });
-}
 }
 
 
@@ -166,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentHistoryPage,  GeneratedColor? currentColor,  bool isHistoryLoading,  bool historyReachedMax,  Set<GeneratedColor> history)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentHistoryPage,  GeneratedColor? currentColor,  bool isHistoryLoading,  bool historyReachedMax,  List<GeneratedColor> history)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ColorGeneratorState() when $default != null:
 return $default(_that.currentHistoryPage,_that.currentColor,_that.isHistoryLoading,_that.historyReachedMax,_that.history);case _:
@@ -187,7 +175,7 @@ return $default(_that.currentHistoryPage,_that.currentColor,_that.isHistoryLoadi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentHistoryPage,  GeneratedColor? currentColor,  bool isHistoryLoading,  bool historyReachedMax,  Set<GeneratedColor> history)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentHistoryPage,  GeneratedColor? currentColor,  bool isHistoryLoading,  bool historyReachedMax,  List<GeneratedColor> history)  $default,) {final _that = this;
 switch (_that) {
 case _ColorGeneratorState():
 return $default(_that.currentHistoryPage,_that.currentColor,_that.isHistoryLoading,_that.historyReachedMax,_that.history);case _:
@@ -207,7 +195,7 @@ return $default(_that.currentHistoryPage,_that.currentColor,_that.isHistoryLoadi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentHistoryPage,  GeneratedColor? currentColor,  bool isHistoryLoading,  bool historyReachedMax,  Set<GeneratedColor> history)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentHistoryPage,  GeneratedColor? currentColor,  bool isHistoryLoading,  bool historyReachedMax,  List<GeneratedColor> history)?  $default,) {final _that = this;
 switch (_that) {
 case _ColorGeneratorState() when $default != null:
 return $default(_that.currentHistoryPage,_that.currentColor,_that.isHistoryLoading,_that.historyReachedMax,_that.history);case _:
@@ -222,18 +210,18 @@ return $default(_that.currentHistoryPage,_that.currentColor,_that.isHistoryLoadi
 
 
 class _ColorGeneratorState implements ColorGeneratorState {
-  const _ColorGeneratorState({this.currentHistoryPage = 0, this.currentColor, this.isHistoryLoading = false, this.historyReachedMax = false, final  Set<GeneratedColor> history = const {}}): _history = history;
+  const _ColorGeneratorState({this.currentHistoryPage = 0, this.currentColor, this.isHistoryLoading = false, this.historyReachedMax = false, final  List<GeneratedColor> history = const []}): _history = history;
   
 
 @override@JsonKey() final  int currentHistoryPage;
 @override final  GeneratedColor? currentColor;
 @override@JsonKey() final  bool isHistoryLoading;
 @override@JsonKey() final  bool historyReachedMax;
- final  Set<GeneratedColor> _history;
-@override@JsonKey() Set<GeneratedColor> get history {
-  if (_history is EqualUnmodifiableSetView) return _history;
+ final  List<GeneratedColor> _history;
+@override@JsonKey() List<GeneratedColor> get history {
+  if (_history is EqualUnmodifiableListView) return _history;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableSetView(_history);
+  return EqualUnmodifiableListView(_history);
 }
 
 
@@ -267,11 +255,11 @@ abstract mixin class _$ColorGeneratorStateCopyWith<$Res> implements $ColorGenera
   factory _$ColorGeneratorStateCopyWith(_ColorGeneratorState value, $Res Function(_ColorGeneratorState) _then) = __$ColorGeneratorStateCopyWithImpl;
 @override @useResult
 $Res call({
- int currentHistoryPage, GeneratedColor? currentColor, bool isHistoryLoading, bool historyReachedMax, Set<GeneratedColor> history
+ int currentHistoryPage, GeneratedColor? currentColor, bool isHistoryLoading, bool historyReachedMax, List<GeneratedColor> history
 });
 
 
-@override $GeneratedColorCopyWith<$Res>? get currentColor;
+
 
 }
 /// @nodoc
@@ -291,23 +279,11 @@ as int,currentColor: freezed == currentColor ? _self.currentColor : currentColor
 as GeneratedColor?,isHistoryLoading: null == isHistoryLoading ? _self.isHistoryLoading : isHistoryLoading // ignore: cast_nullable_to_non_nullable
 as bool,historyReachedMax: null == historyReachedMax ? _self.historyReachedMax : historyReachedMax // ignore: cast_nullable_to_non_nullable
 as bool,history: null == history ? _self._history : history // ignore: cast_nullable_to_non_nullable
-as Set<GeneratedColor>,
+as List<GeneratedColor>,
   ));
 }
 
-/// Create a copy of ColorGeneratorState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$GeneratedColorCopyWith<$Res>? get currentColor {
-    if (_self.currentColor == null) {
-    return null;
-  }
 
-  return $GeneratedColorCopyWith<$Res>(_self.currentColor!, (value) {
-    return _then(_self.copyWith(currentColor: value));
-  });
-}
 }
 
 // dart format on

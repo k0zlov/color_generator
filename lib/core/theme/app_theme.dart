@@ -1,5 +1,5 @@
 import 'package:color_generator/core/theme/tokens/motion_tokens.dart';
-import 'package:color_generator/core/theme/tokens/space_tokens.dart';
+import 'package:color_generator/core/theme/tokens/typography_tokens.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ abstract final class AppTheme {
   );
 
   static List<ThemeExtension> get _extensions => [
-    SpaceTokens.regular(),
     MotionTokens.regular(),
+    TypographyTokens.regular(),
   ];
 }

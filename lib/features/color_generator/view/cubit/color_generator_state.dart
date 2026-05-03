@@ -7,6 +7,6 @@ abstract class ColorGeneratorState with _$ColorGeneratorState {
     GeneratedColor? currentColor,
     @Default(false) bool isHistoryLoading,
     @Default(false) bool historyReachedMax,
-    @Default({}) Set<GeneratedColor> history,
+    @Default([]) List<GeneratedColor> history,
   }) = _ColorGeneratorState;
 }

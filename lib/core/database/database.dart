@@ -14,8 +14,6 @@ final class Database extends _$Database {
   @override
   int get schemaVersion => 1;
 
-  /// Keeping a custom constructor is useful for unit tests which may want to
-  /// open an in-memory database only.
   Database(super.e);
 
   Database.defaults() : super(driftDatabase(name: 'app_db'));

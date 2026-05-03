@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GeneratedColorModel {
 
- String get id; int get red; int get blue; int get green; int get createdAtUnix;
+ int get colorARGB32; int get createdAtUnix;
 /// Create a copy of GeneratedColorModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $GeneratedColorModelCopyWith<GeneratedColorModel> get copyWith => _$GeneratedCol
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GeneratedColorModel&&(identical(other.id, id) || other.id == id)&&(identical(other.red, red) || other.red == red)&&(identical(other.blue, blue) || other.blue == blue)&&(identical(other.green, green) || other.green == green)&&(identical(other.createdAtUnix, createdAtUnix) || other.createdAtUnix == createdAtUnix));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GeneratedColorModel&&(identical(other.colorARGB32, colorARGB32) || other.colorARGB32 == colorARGB32)&&(identical(other.createdAtUnix, createdAtUnix) || other.createdAtUnix == createdAtUnix));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,red,blue,green,createdAtUnix);
+int get hashCode => Object.hash(runtimeType,colorARGB32,createdAtUnix);
 
 @override
 String toString() {
-  return 'GeneratedColorModel(id: $id, red: $red, blue: $blue, green: $green, createdAtUnix: $createdAtUnix)';
+  return 'GeneratedColorModel(colorARGB32: $colorARGB32, createdAtUnix: $createdAtUnix)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $GeneratedColorModelCopyWith<$Res>  {
   factory $GeneratedColorModelCopyWith(GeneratedColorModel value, $Res Function(GeneratedColorModel) _then) = _$GeneratedColorModelCopyWithImpl;
 @useResult
 $Res call({
- String id, int red, int blue, int green, int createdAtUnix
+ int colorARGB32, int createdAtUnix
 });
 
 
@@ -65,12 +65,9 @@ class _$GeneratedColorModelCopyWithImpl<$Res>
 
 /// Create a copy of GeneratedColorModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? red = null,Object? blue = null,Object? green = null,Object? createdAtUnix = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? colorARGB32 = null,Object? createdAtUnix = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,red: null == red ? _self.red : red // ignore: cast_nullable_to_non_nullable
-as int,blue: null == blue ? _self.blue : blue // ignore: cast_nullable_to_non_nullable
-as int,green: null == green ? _self.green : green // ignore: cast_nullable_to_non_nullable
+colorARGB32: null == colorARGB32 ? _self.colorARGB32 : colorARGB32 // ignore: cast_nullable_to_non_nullable
 as int,createdAtUnix: null == createdAtUnix ? _self.createdAtUnix : createdAtUnix // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -157,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  int red,  int blue,  int green,  int createdAtUnix)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int colorARGB32,  int createdAtUnix)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GeneratedColorModel() when $default != null:
-return $default(_that.id,_that.red,_that.blue,_that.green,_that.createdAtUnix);case _:
+return $default(_that.colorARGB32,_that.createdAtUnix);case _:
   return orElse();
 
 }
@@ -178,10 +175,10 @@ return $default(_that.id,_that.red,_that.blue,_that.green,_that.createdAtUnix);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  int red,  int blue,  int green,  int createdAtUnix)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int colorARGB32,  int createdAtUnix)  $default,) {final _that = this;
 switch (_that) {
 case _GeneratedColorModel():
-return $default(_that.id,_that.red,_that.blue,_that.green,_that.createdAtUnix);case _:
+return $default(_that.colorARGB32,_that.createdAtUnix);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +195,10 @@ return $default(_that.id,_that.red,_that.blue,_that.green,_that.createdAtUnix);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  int red,  int blue,  int green,  int createdAtUnix)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int colorARGB32,  int createdAtUnix)?  $default,) {final _that = this;
 switch (_that) {
 case _GeneratedColorModel() when $default != null:
-return $default(_that.id,_that.red,_that.blue,_that.green,_that.createdAtUnix);case _:
+return $default(_that.colorARGB32,_that.createdAtUnix);case _:
   return null;
 
 }
@@ -213,13 +210,10 @@ return $default(_that.id,_that.red,_that.blue,_that.green,_that.createdAtUnix);c
 @JsonSerializable()
 
 class _GeneratedColorModel extends GeneratedColorModel {
-  const _GeneratedColorModel({required this.id, required this.red, required this.blue, required this.green, required this.createdAtUnix}): super._();
+  const _GeneratedColorModel({required this.colorARGB32, required this.createdAtUnix}): super._();
   factory _GeneratedColorModel.fromJson(Map<String, dynamic> json) => _$GeneratedColorModelFromJson(json);
 
-@override final  String id;
-@override final  int red;
-@override final  int blue;
-@override final  int green;
+@override final  int colorARGB32;
 @override final  int createdAtUnix;
 
 /// Create a copy of GeneratedColorModel
@@ -235,16 +229,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GeneratedColorModel&&(identical(other.id, id) || other.id == id)&&(identical(other.red, red) || other.red == red)&&(identical(other.blue, blue) || other.blue == blue)&&(identical(other.green, green) || other.green == green)&&(identical(other.createdAtUnix, createdAtUnix) || other.createdAtUnix == createdAtUnix));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GeneratedColorModel&&(identical(other.colorARGB32, colorARGB32) || other.colorARGB32 == colorARGB32)&&(identical(other.createdAtUnix, createdAtUnix) || other.createdAtUnix == createdAtUnix));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,red,blue,green,createdAtUnix);
+int get hashCode => Object.hash(runtimeType,colorARGB32,createdAtUnix);
 
 @override
 String toString() {
-  return 'GeneratedColorModel(id: $id, red: $red, blue: $blue, green: $green, createdAtUnix: $createdAtUnix)';
+  return 'GeneratedColorModel(colorARGB32: $colorARGB32, createdAtUnix: $createdAtUnix)';
 }
 
 
@@ -255,7 +249,7 @@ abstract mixin class _$GeneratedColorModelCopyWith<$Res> implements $GeneratedCo
   factory _$GeneratedColorModelCopyWith(_GeneratedColorModel value, $Res Function(_GeneratedColorModel) _then) = __$GeneratedColorModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, int red, int blue, int green, int createdAtUnix
+ int colorARGB32, int createdAtUnix
 });
 
 
@@ -272,12 +266,9 @@ class __$GeneratedColorModelCopyWithImpl<$Res>
 
 /// Create a copy of GeneratedColorModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? red = null,Object? blue = null,Object? green = null,Object? createdAtUnix = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? colorARGB32 = null,Object? createdAtUnix = null,}) {
   return _then(_GeneratedColorModel(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,red: null == red ? _self.red : red // ignore: cast_nullable_to_non_nullable
-as int,blue: null == blue ? _self.blue : blue // ignore: cast_nullable_to_non_nullable
-as int,green: null == green ? _self.green : green // ignore: cast_nullable_to_non_nullable
+colorARGB32: null == colorARGB32 ? _self.colorARGB32 : colorARGB32 // ignore: cast_nullable_to_non_nullable
 as int,createdAtUnix: null == createdAtUnix ? _self.createdAtUnix : createdAtUnix // ignore: cast_nullable_to_non_nullable
 as int,
   ));

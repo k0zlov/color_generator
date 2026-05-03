@@ -1,6 +1,4 @@
-import 'package:color_generator/core/database/database.dart';
-import 'package:color_generator/core/navigation/navigation.dart';
-import 'package:color_generator/core/notifications/notification_service.dart';
+import 'package:color_generator/core/core.dart';
 import 'package:color_generator/features/color_generator/data/providers/generated_color_provider.dart';
 import 'package:color_generator/features/color_generator/data/repositories/generated_color_repository_impl.dart';
 import 'package:color_generator/features/color_generator/domain/repositories/generated_color_repository.dart';
@@ -15,23 +13,17 @@ import 'package:color_generator/features/settings/domain/repositories/settings_t
 import 'package:color_generator/features/settings/domain/use_cases/get_theme_use_case.dart';
 import 'package:color_generator/features/settings/domain/use_cases/set_theme_use_case.dart';
 import 'package:color_generator/features/settings/view/cubit/settings_cubit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Get It instance
 final GetIt getIt = GetIt.instance;
 
-void _registerLazySingleton<T extends Object>(FactoryFunc<T> factoryFunc) {
-  getIt.registerLazySingleton<T>(factoryFunc);
-}
-
-void _registerSingleton<T extends Object>(T object) {
-  getIt.registerSingleton(object);
-}
-
 Future<void> registerDependencies() async {
   _database();
   await _sharedPreferences();
+  _router();
   _services();
   _providers();
   _repositories();
@@ -40,25 +32,35 @@ Future<void> registerDependencies() async {
 }
 
 void _database() {
-  _registerLazySingleton(Database.defaults);
+  getIt.registerLazySingleton(Database.defaults);
 }
 
 Future<void> _sharedPreferences() async {
   final SharedPreferences preferences = await SharedPreferences.getInstance();
 
-  _registerSingleton(preferences);
+  getIt.registerSingleton(preferences);
+}
+
+void _router() {
+  getIt.registerLazySingleton(GlobalKey<NavigatorState>.new);
+
+  getIt.registerLazySingleton(
+    () => AppRouter(navigatorKey: getIt()),
+  );
 }
 
 void _services() {
-  _registerLazySingleton<NavigationService>(NavigationServiceImpl.new);
-  _registerLazySingleton<NotificationService>(NotificationServiceImpl.new);
+  getIt.registerLazySingleton<NavigationService>(
+    () => NavigationServiceImpl(navigatorKey: getIt()),
+  );
+  getIt.registerLazySingleton<NotificationService>(NotificationServiceImpl.new);
 }
 
 void _providers() {
-  _registerLazySingleton<GeneratedColorProvider>(
+  getIt.registerLazySingleton<GeneratedColorProvider>(
     () => DriftGeneratedColorProvider(db: getIt()),
   );
-  _registerLazySingleton<SettingsThemeLocalProvider>(
+  getIt.registerLazySingleton<SettingsThemeLocalProvider>(
     () => SharedPreferencesSettingsThemeProvider(
       sharedPreferences: getIt(),
     ),
@@ -66,31 +68,33 @@ void _providers() {
 }
 
 void _repositories() {
-  _registerLazySingleton<GeneratedColorRepository>(
+  getIt.registerLazySingleton<GeneratedColorRepository>(
     () => GeneratedColorRepositoryImpl(provider: getIt()),
   );
-  _registerLazySingleton<SettingsThemeRepository>(
+  getIt.registerLazySingleton<SettingsThemeRepository>(
     () => SettingsThemeRepositoryImpl(provider: getIt()),
   );
 }
 
 void _useCases() {
-  _registerLazySingleton(
+  getIt.registerLazySingleton(
     () => GetHistoryUseCase(repository: getIt()),
   );
 
-  _registerLazySingleton(() => ClearHistoryUseCase(repository: getIt()));
+  getIt.registerLazySingleton(() => ClearHistoryUseCase(repository: getIt()));
 
-  _registerLazySingleton(() => SaveGeneratedColorUseCase(repository: getIt()));
+  getIt.registerLazySingleton(
+    () => SaveGeneratedColorUseCase(repository: getIt()),
+  );
 
-  _registerLazySingleton(GenerateColorUseCase.new);
+  getIt.registerLazySingleton(GenerateColorUseCase.new);
 
-  _registerLazySingleton(() => SetThemeUseCase(repository: getIt()));
-  _registerLazySingleton(() => GetThemeUseCase(repository: getIt()));
+  getIt.registerLazySingleton(() => SetThemeUseCase(repository: getIt()));
+  getIt.registerLazySingleton(() => GetThemeUseCase(repository: getIt()));
 }
 
 void _cubits() {
-  _registerLazySingleton(
+  getIt.registerLazySingleton(
     () => ColorGeneratorCubit(
       getGeneratedColorsHistoryUseCase: getIt(),
       saveGeneratedColorUseCase: getIt(),
@@ -100,7 +104,7 @@ void _cubits() {
     ),
   );
 
-  _registerLazySingleton(
+  getIt.registerLazySingleton(
     () => SettingsCubit(
       notificationService: getIt(),
       setThemeUseCase: getIt(),

@@ -22,7 +22,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }) : super(const SettingsState());
 
   Future<void> initialize() async {
-    final result = await getThemeUseCase(NoParams());
+    final Result<SettingsTheme?> result = await getThemeUseCase(NoParams());
 
     result.fold(
       (_) {
@@ -39,12 +39,12 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> setThemeMode(SettingsThemeMode mode) async {
     emit(state.copyWith(theme: state.theme.copyWith(mode: mode)));
 
-    final result = await setThemeUseCase(SetThemeParams(theme: state.theme));
-
-    result.fold(
-      (_) => notificationService.showError('Could not save theme.'),
-      // ignore: no_empty_block
-      (_) {},
+    final Result<void> result = await setThemeUseCase(
+      SetThemeParams(theme: state.theme),
     );
+
+    if (result.isLeft()) {
+      notificationService.showError('Could not save theme.');
+    }
   }
 }

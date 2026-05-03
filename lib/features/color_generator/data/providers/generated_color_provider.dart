@@ -13,8 +13,6 @@ abstract interface class GeneratedColorProvider {
     required int offset,
   });
 
-  Future<Result<void>> deleteColor(String id);
-
   Future<Result<int>> deleteAllColors();
 }
 
@@ -29,19 +27,6 @@ class DriftGeneratedColorProvider implements GeneratedColorProvider {
       final int count = await db.generatedColors.deleteAll();
 
       return Right(count);
-    } catch (e) {
-      return Left(CacheFailure(errorMessage: e.toString()));
-    }
-  }
-
-  @override
-  Future<Result<void>> deleteColor(String id) async {
-    try {
-      await db.generatedColors.deleteWhere(
-        (tbl) => tbl.id.equals(id),
-      );
-
-      return const Right(null);
     } catch (e) {
       return Left(CacheFailure(errorMessage: e.toString()));
     }
@@ -69,10 +54,7 @@ class DriftGeneratedColorProvider implements GeneratedColorProvider {
     try {
       await db.generatedColors.insertOne(
         GeneratedColorsCompanion.insert(
-          id: model.id,
-          red: model.red,
-          blue: model.blue,
-          green: model.green,
+          colorARGB32: model.colorARGB32,
           createdAtUnix: model.createdAtUnix,
         ),
       );

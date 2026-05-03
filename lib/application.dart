@@ -8,43 +8,56 @@ import 'package:color_generator/features/settings/domain/entities/settings_theme
 import 'package:color_generator/features/settings/view/cubit/settings_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class Application extends StatefulWidget {
-  const Application({required this.notificationService, super.key});
+  const Application({
+    required this.router,
+    required this.notificationService,
+    super.key,
+  });
 
   final NotificationService notificationService;
+  final AppRouter router;
 
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
+  GoRouter? router;
   StreamSubscription<String>? _errorSubscription;
 
   @override
   void initState() {
     super.initState();
 
+    router = widget.router();
+
     _errorSubscription = widget.notificationService.errorStream.listen(
-      (msg) {
-        final BuildContext? context = AppRouter.navigatorKey.currentContext;
+      (message) {
+        final BuildContext? context = widget.router.navigatorKey.currentContext;
 
         if (context == null || !context.mounted) return;
 
-        final colorScheme = context.theme.colorScheme;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: colorScheme.errorContainer,
-            behavior: SnackBarBehavior.floating,
-            dismissDirection: DismissDirection.horizontal,
-            content: DefaultTextStyle.merge(
-              style: TextStyle(color: colorScheme.onErrorContainer),
-              child: Text(msg),
-            ),
-          ),
-        );
+        _snowNotification(context, message);
       },
+    );
+  }
+
+  void _snowNotification(BuildContext context, String message) {
+    final colorScheme = context.theme.colorScheme;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: colorScheme.errorContainer,
+        behavior: SnackBarBehavior.floating,
+        dismissDirection: DismissDirection.horizontal,
+        content: DefaultTextStyle.merge(
+          style: TextStyle(color: colorScheme.onErrorContainer),
+          child: Text(message),
+        ),
+      ),
     );
   }
 
@@ -61,7 +74,7 @@ class _ApplicationState extends State<Application> {
         return MaterialApp.router(
           title: 'Color generator',
           debugShowCheckedModeBanner: false,
-          routerConfig: AppRouter.router,
+          routerConfig: router,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
           themeMode: themeMode,

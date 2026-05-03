@@ -8,19 +8,13 @@ part of 'generated_color_model.dart';
 
 _GeneratedColorModel _$GeneratedColorModelFromJson(Map<String, dynamic> json) =>
     _GeneratedColorModel(
-      id: json['id'] as String,
-      red: (json['red'] as num).toInt(),
-      blue: (json['blue'] as num).toInt(),
-      green: (json['green'] as num).toInt(),
+      colorARGB32: (json['colorARGB32'] as num).toInt(),
       createdAtUnix: (json['createdAtUnix'] as num).toInt(),
     );
 
 Map<String, dynamic> _$GeneratedColorModelToJson(
   _GeneratedColorModel instance,
 ) => <String, dynamic>{
-  'id': instance.id,
-  'red': instance.red,
-  'blue': instance.blue,
-  'green': instance.green,
+  'colorARGB32': instance.colorARGB32,
   'createdAtUnix': instance.createdAtUnix,
 };

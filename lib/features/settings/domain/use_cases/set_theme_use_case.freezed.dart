@@ -49,7 +49,7 @@ $Res call({
 });
 
 
-$SettingsThemeCopyWith<$Res> get theme;
+
 
 }
 /// @nodoc
@@ -68,16 +68,7 @@ theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nulla
 as SettingsTheme,
   ));
 }
-/// Create a copy of SetThemeParams
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$SettingsThemeCopyWith<$Res> get theme {
-  
-  return $SettingsThemeCopyWith<$Res>(_self.theme, (value) {
-    return _then(_self.copyWith(theme: value));
-  });
-}
+
 }
 
 
@@ -254,7 +245,7 @@ $Res call({
 });
 
 
-@override $SettingsThemeCopyWith<$Res> get theme;
+
 
 }
 /// @nodoc
@@ -274,16 +265,7 @@ as SettingsTheme,
   ));
 }
 
-/// Create a copy of SetThemeParams
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$SettingsThemeCopyWith<$Res> get theme {
-  
-  return $SettingsThemeCopyWith<$Res>(_self.theme, (value) {
-    return _then(_self.copyWith(theme: value));
-  });
-}
+
 }
 
 // dart format on

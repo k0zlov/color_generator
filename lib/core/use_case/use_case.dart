@@ -1,12 +1,12 @@
 import 'package:color_generator/core/failures/failure.dart';
 import 'package:fpdart/fpdart.dart';
 
-abstract class UseCase<T, P> {
+abstract class UseCase<ReturnT, ParamsT> {
   const UseCase();
 
-  Future<Result<T>> call(P params);
+  Future<Result<ReturnT>> call(ParamsT params);
 }
 
 class NoParams {}
 
-typedef Result<T> = Either<Failure, T>;
+typedef Result<ReturnT> = Either<Failure, ReturnT>;

@@ -14,10 +14,6 @@ class GeneratedColorRepositoryImpl implements GeneratedColorRepository {
     return provider.deleteAllColors();
   }
 
-  @override
-  Future<Result<void>> deleteColor(String id) {
-    return provider.deleteColor(id);
-  }
 
   @override
   Future<Result<List<GeneratedColor>>> getColors({required int page}) async {
