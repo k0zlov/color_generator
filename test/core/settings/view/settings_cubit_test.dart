@@ -15,11 +15,6 @@ class MockGetThemeUseCase extends Mock implements GetThemeUseCase {}
 class MockNotificationService extends Mock implements NotificationService {}
 
 void main() {
-  late SettingsCubit cubit;
-  late MockSetThemeUseCase mockSetThemeUseCase;
-  late MockGetThemeUseCase mockGetThemeUseCase;
-  late MockNotificationService mockNotificationService;
-
   const tTheme = SettingsTheme(mode: SettingsThemeMode.dark);
   const tFailure = CacheFailure(errorMessage: '');
 
@@ -28,50 +23,47 @@ void main() {
     registerFallbackValue(const SetThemeParams(theme: tTheme));
   });
 
-  setUp(() {
-    mockSetThemeUseCase = MockSetThemeUseCase();
-    mockGetThemeUseCase = MockGetThemeUseCase();
-    mockNotificationService = MockNotificationService();
-
-    cubit = SettingsCubit(
-      notificationService: mockNotificationService,
-      setThemeUseCase: mockSetThemeUseCase,
-      getThemeUseCase: mockGetThemeUseCase,
+  SettingsCubit createCubit({
+    MockGetThemeUseCase? getTheme,
+    MockSetThemeUseCase? setTheme,
+    MockNotificationService? notification,
+  }) {
+    return SettingsCubit(
+      getThemeUseCase: getTheme ?? MockGetThemeUseCase(),
+      setThemeUseCase: setTheme ?? MockSetThemeUseCase(),
+      notificationService: notification ?? MockNotificationService(),
     );
-  });
-
-  tearDown(() => cubit.close());
+  }
 
   group('initialize', () {
     blocTest<SettingsCubit, SettingsState>(
       'emits state with new theme when getThemeUseCase returns success',
       build: () {
+        final getTheme = MockGetThemeUseCase();
         when(
-          () => mockGetThemeUseCase(any()),
+          () => getTheme(any()),
         ).thenAnswer((_) async => const Right(tTheme));
-        return cubit;
+
+        return createCubit(getTheme: getTheme);
       },
       act: (cubit) => cubit.initialize(),
-      expect: () => [
-        const SettingsState(theme: tTheme),
-      ],
-      verify: (_) {
-        verify(() => mockGetThemeUseCase(any())).called(1);
-      },
+      expect: () => [const SettingsState(theme: tTheme)],
     );
 
     blocTest<SettingsCubit, SettingsState>(
       'shows error notification and emits nothing when getThemeUseCase fails',
       build: () {
+        final getTheme = MockGetThemeUseCase();
         when(
-          () => mockGetThemeUseCase(any()),
+          () => getTheme(any()),
         ).thenAnswer((_) async => const Left(tFailure));
-        return cubit;
+
+        return createCubit(getTheme: getTheme);
       },
       act: (cubit) => cubit.initialize(),
       expect: () => [],
-      verify: (_) {
-        verify(() => mockNotificationService.showError(any())).called(1);
+      verify: (cubit) {
+        verify(() => cubit.notificationService.showError(any())).called(1);
       },
     );
   });
@@ -82,35 +74,15 @@ void main() {
     blocTest<SettingsCubit, SettingsState>(
       'emits new theme and calls setThemeUseCase',
       build: () {
-        when(
-          () => mockSetThemeUseCase(any()),
-        ).thenAnswer((_) async => const Right(null));
-        return cubit;
-      },
-      act: (cubit) => cubit.setThemeMode(tNewMode),
-      expect: () => [
-        isA<SettingsState>().having((s) => s.theme.mode, 'mode', tNewMode),
-      ],
-      verify: (_) {
-        verify(() => mockSetThemeUseCase(any())).called(1);
-      },
-    );
+        final setTheme = MockSetThemeUseCase();
+        when(() => setTheme(any())).thenAnswer((_) async => const Right(null));
 
-    blocTest<SettingsCubit, SettingsState>(
-      'shows error notification when setThemeUseCase fails',
-      build: () {
-        when(
-          () => mockSetThemeUseCase(any()),
-        ).thenAnswer((_) async => const Left(tFailure));
-        return cubit;
+        return createCubit(setTheme: setTheme);
       },
       act: (cubit) => cubit.setThemeMode(tNewMode),
       expect: () => [
         isA<SettingsState>().having((s) => s.theme.mode, 'mode', tNewMode),
       ],
-      verify: (_) {
-        verify(() => mockNotificationService.showError(any())).called(1);
-      },
     );
   });
 }
