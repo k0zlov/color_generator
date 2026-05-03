@@ -1,9 +1,6 @@
 import 'package:color_generator/core/use_case/use_case.dart';
 import 'package:color_generator/features/color_generator/domain/entities/generated_color.dart';
 import 'package:color_generator/features/color_generator/domain/repositories/generated_color_repository.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'save_generated_color_use_case.freezed.dart';
 
 class SaveGeneratedColorUseCase
     extends UseCase<void, SaveGeneratedColorParams> {
@@ -17,9 +14,8 @@ class SaveGeneratedColorUseCase
   }
 }
 
-@freezed
-abstract class SaveGeneratedColorParams with _$SaveGeneratedColorParams {
-  const factory SaveGeneratedColorParams({
-    required GeneratedColor entity,
-  }) = _SaveGeneratedColorParams;
+class SaveGeneratedColorParams {
+  final GeneratedColor entity;
+
+  const SaveGeneratedColorParams({required this.entity});
 }

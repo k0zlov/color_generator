@@ -22,7 +22,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   }) : super(const SettingsState());
 
   Future<void> initialize() async {
-    final Result<SettingsTheme?> result = await getThemeUseCase(NoParams());
+    final Result<SettingsTheme?> result = await getThemeUseCase(
+      const NoParams(),
+    );
 
     result.fold(
       (_) {
@@ -40,7 +42,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith(theme: state.theme.copyWith(mode: mode)));
 
     final Result<void> result = await setThemeUseCase(
-      SetThemeParams(theme: state.theme),
+      SetThemeParams(entity: state.theme),
     );
 
     if (result.isLeft()) {

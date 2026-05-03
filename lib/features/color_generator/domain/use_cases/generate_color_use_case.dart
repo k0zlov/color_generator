@@ -7,7 +7,7 @@ import 'package:fpdart/fpdart.dart';
 
 class GenerateColorUseCase extends UseCase<GeneratedColor, NoParams> {
   @override
-  Future<Result<GeneratedColor>> call(NoParams params) async {
+  Future<Result<GeneratedColor>> call(_) async {
     final Random random = Random();
 
     final int alpha = Color.getAlphaFromOpacity(1);

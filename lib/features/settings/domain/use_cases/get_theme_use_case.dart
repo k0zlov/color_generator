@@ -8,7 +8,7 @@ class GetThemeUseCase extends UseCase<SettingsTheme?, NoParams> {
   const GetThemeUseCase({required this.repository});
 
   @override
-  Future<Result<SettingsTheme?>> call(NoParams params) {
+  Future<Result<SettingsTheme?>> call(_) {
     return repository.getTheme();
   }
 }

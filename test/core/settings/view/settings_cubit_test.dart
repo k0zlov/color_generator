@@ -25,8 +25,8 @@ void main() {
   const tFailure = CacheFailure(errorMessage: '');
 
   setUpAll(() {
-    registerFallbackValue(NoParams());
-    registerFallbackValue(const SetThemeParams(theme: tTheme));
+    registerFallbackValue(const NoParams());
+    registerFallbackValue(const SetThemeParams(entity: tTheme));
   });
 
   setUp(() {

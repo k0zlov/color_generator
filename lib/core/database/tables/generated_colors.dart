@@ -8,4 +8,7 @@ class GeneratedColors extends Table {
   IntColumn get colorARGB32 => integer()();
 
   IntColumn get createdAtUnix => integer()();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }

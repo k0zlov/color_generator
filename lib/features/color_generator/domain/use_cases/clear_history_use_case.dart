@@ -7,7 +7,7 @@ class ClearHistoryUseCase extends UseCase<void, NoParams> {
   const ClearHistoryUseCase({required this.repository});
 
   @override
-  Future<Result<void>> call(NoParams params) {
+  Future<Result<void>> call(_) {
     return repository.deleteAllColors();
   }
 }

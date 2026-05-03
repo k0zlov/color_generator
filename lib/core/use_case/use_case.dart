@@ -7,6 +7,8 @@ abstract class UseCase<ReturnT, ParamsT> {
   Future<Result<ReturnT>> call(ParamsT params);
 }
 
-class NoParams {}
+class NoParams {
+  const NoParams();
+}
 
 typedef Result<ReturnT> = Either<Failure, ReturnT>;

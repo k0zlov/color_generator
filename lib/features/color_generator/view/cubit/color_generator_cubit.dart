@@ -50,7 +50,7 @@ class ColorGeneratorCubit extends Cubit<ColorGeneratorState> {
 
   Future<void> generateNewColor() async {
     final Result<GeneratedColor> result = await generateColorUseCase(
-      NoParams(),
+      const NoParams(),
     );
 
     await result.fold(
@@ -120,7 +120,7 @@ class ColorGeneratorCubit extends Cubit<ColorGeneratorState> {
   }
 
   Future<void> clearHistory() async {
-    final Result<void> result = await clearHistoryUseCase(NoParams());
+    final Result<void> result = await clearHistoryUseCase(const NoParams());
 
     result.fold(
       (_) {
