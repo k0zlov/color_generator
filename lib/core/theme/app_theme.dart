@@ -1,3 +1,4 @@
+import 'package:color_generator/core/theme/tokens/motion_tokens.dart';
 import 'package:color_generator/core/theme/tokens/space_tokens.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
@@ -65,5 +66,8 @@ abstract final class AppTheme {
     cupertinoOverrideTheme: const CupertinoThemeData(applyThemeToAll: true),
   );
 
-  static List<ThemeExtension> get _extensions => [SpaceTokens.regular()];
+  static List<ThemeExtension> get _extensions => [
+    SpaceTokens.regular(),
+    MotionTokens.regular(),
+  ];
 }

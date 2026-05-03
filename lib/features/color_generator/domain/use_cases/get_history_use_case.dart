@@ -5,12 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'get_history_use_case.freezed.dart';
 
-@freezed
-abstract class GetHistoryParams with _$GetHistoryParams {
-  const factory GetHistoryParams({required int page}) =
-      _GetGeneratedColorsHistoryParams;
-}
-
 class GetHistoryUseCase
     extends UseCase<List<GeneratedColor>, GetHistoryParams> {
   final GeneratedColorRepository repository;
@@ -23,4 +17,10 @@ class GetHistoryUseCase
   ) async {
     return repository.getColors(page: params.page);
   }
+}
+
+@freezed
+abstract class GetHistoryParams with _$GetHistoryParams {
+  const factory GetHistoryParams({required int page}) =
+      _GetGeneratedColorsHistoryParams;
 }

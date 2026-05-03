@@ -1,4 +1,4 @@
-import 'package:color_generator/core/widgets/extensions/build_context_x.dart';
+import 'package:color_generator/core/theme/extensions/build_context_x.dart';
 import 'package:color_generator/features/color_generator/domain/entities/generated_color.dart';
 import 'package:color_generator/utils/extensions/color_x.dart';
 import 'package:flutter/material.dart';

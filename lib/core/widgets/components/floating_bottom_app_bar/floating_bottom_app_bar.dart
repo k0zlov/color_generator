@@ -1,5 +1,5 @@
+import 'package:color_generator/core/theme/extensions/build_context_x.dart';
 import 'package:color_generator/core/widgets/components/floating_bottom_app_bar/floating_bottom_app_bar_item.dart';
-import 'package:color_generator/core/widgets/extensions/build_context_x.dart';
 import 'package:color_generator/core/widgets/primitives/blur.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +28,8 @@ class FloatingBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
+
+    final motion = context.motion;
 
     final barTheme = theme.bottomNavigationBarTheme;
 
@@ -59,7 +61,7 @@ class FloatingBottomAppBar extends StatelessWidget {
                     left: itemWidth * currentIndex,
                     width: itemWidth,
                     height: maxHeight,
-                    duration: const Duration(milliseconds: 220),
+                    duration: motion.durationShort,
                     curve: Curves.fastEaseInToSlowEaseOut,
                     child: DecoratedBox(
                       decoration: BoxDecoration(

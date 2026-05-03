@@ -16,11 +16,11 @@ class SharedPreferencesSettingsThemeProvider
     implements SettingsThemeLocalProvider {
   final SharedPreferences sharedPreferences;
 
+  static const String themeKey = 'app.theme';
+
   const SharedPreferencesSettingsThemeProvider({
     required this.sharedPreferences,
   });
-
-  static const String themeKey = 'app.theme';
 
   @override
   Future<Result<SettingsThemeModel?>> getTheme() async {

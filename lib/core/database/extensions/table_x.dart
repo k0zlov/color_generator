@@ -12,7 +12,7 @@ extension TableX<TableDsl extends Table, D> on TableInfo<TableDsl, D> {
   }
 
   Future<List<D>> getAll() {
-    return (select()).get();
+    return select().get();
   }
 
   Future<D> getSingle(Expression<bool> Function(TableDsl tbl) filter) {
@@ -45,23 +45,6 @@ extension TableX<TableDsl extends Table, D> on TableInfo<TableDsl, D> {
 
   void deleteOneSync(Insertable<D> entity) {
     return unawaited(deleteOne(entity));
-  }
-
-  Future<D?> getLastOrNull({
-    Expression<bool> Function(TableDsl tbl)? filter,
-    required List<OrderingTerm Function(TableDsl)> orderBy,
-  }) {
-    var query = select();
-
-    if (filter != null) {
-      query = query..where(filter);
-    }
-
-    query = query
-      ..orderBy(orderBy)
-      ..limit(1);
-
-    return query.getSingleOrNull();
   }
 
   Future<int> countWhere(Expression<bool> Function(TableDsl tbl) filter) {

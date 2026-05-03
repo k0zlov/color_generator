@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:color_generator/core/navigation/app_router.dart';
 import 'package:color_generator/core/notifications/notification_service.dart';
 import 'package:color_generator/core/theme/app_theme.dart';
-import 'package:color_generator/core/widgets/extensions/build_context_x.dart';
+import 'package:color_generator/core/theme/extensions/build_context_x.dart';
 import 'package:color_generator/features/settings/domain/entities/settings_theme.dart';
 import 'package:color_generator/features/settings/view/cubit/settings_cubit.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +27,9 @@ class _ApplicationState extends State<Application> {
 
     _errorSubscription = widget.notificationService.errorStream.listen(
       (msg) {
-        if (!mounted) return;
+        final BuildContext? context = AppRouter.navigatorKey.currentContext;
 
-        final context = AppRouter.navigatorKey.currentContext;
-
-        if (context == null) return;
+        if (context == null || !context.mounted) return;
 
         final colorScheme = context.theme.colorScheme;
 

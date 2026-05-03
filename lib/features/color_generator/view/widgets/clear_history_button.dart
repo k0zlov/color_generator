@@ -1,4 +1,4 @@
-import 'package:color_generator/core/widgets/extensions/build_context_x.dart';
+import 'package:color_generator/core/theme/extensions/build_context_x.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

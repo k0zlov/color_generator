@@ -96,8 +96,6 @@ class ColorGeneratorCubit extends Cubit<ColorGeneratorState> {
         notificationService.showError('Could not fetch history section.');
       },
       (entities) {
-        print(entities.length);
-
         if (entities.isEmpty) {
           emit(
             state.copyWith(

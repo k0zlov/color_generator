@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:color_generator/core/resources/lottie/lottie_icons.dart';
 import 'package:color_generator/core/widgets/components/floating_bottom_app_bar/floating_bottom_app_bar.dart';
 import 'package:color_generator/core/widgets/components/floating_bottom_app_bar/floating_bottom_app_bar_item.dart';
 import 'package:flutter/material.dart';
@@ -50,13 +51,19 @@ class NavigationShellScreen extends StatelessWidget {
       bottomNavigationBar: FloatingBottomAppBar(
         backgroundColor: Colors.grey,
         currentIndex: navigationShell.currentIndex,
-        items: const [
+        items: [
           FloatingBottomAppBarItemData(
-            icon: Icons.color_lens,
+            icon: LottieIcons.home,
             title: 'Generator',
           ),
-          FloatingBottomAppBarItemData(icon: Icons.settings, title: 'Settings'),
-          FloatingBottomAppBarItemData(icon: Icons.history, title: 'History'),
+          FloatingBottomAppBarItemData(
+            icon: LottieIcons.settings,
+            title: 'Settings',
+          ),
+          FloatingBottomAppBarItemData(
+            icon: LottieIcons.history,
+            title: 'History',
+          ),
         ],
         onTap: navigationShell.goBranch,
       ),

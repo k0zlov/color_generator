@@ -1,12 +1,6 @@
-import 'package:color_generator/core/widgets/extensions/build_context_x.dart';
+import 'package:color_generator/core/theme/extensions/build_context_x.dart';
+import 'package:color_generator/core/widgets/primitives/lottie_icon.dart';
 import 'package:flutter/material.dart';
-
-class FloatingBottomAppBarItemData {
-  final IconData icon;
-  final String title;
-
-  const FloatingBottomAppBarItemData({required this.title, required this.icon});
-}
 
 class FloatingBottomAppBarItem extends StatelessWidget {
   const FloatingBottomAppBarItem({
@@ -22,6 +16,8 @@ class FloatingBottomAppBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final motion = context.motion;
+
     final barTheme = context.theme.bottomNavigationBarTheme;
 
     final textStyle = isSelected
@@ -41,10 +37,10 @@ class FloatingBottomAppBarItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(data.icon),
+            LottieIcon(data.icon, animate: isSelected),
             AnimatedDefaultTextStyle(
               style: textStyle ?? const TextStyle(),
-              duration: const Duration(milliseconds: 220),
+              duration: motion.durationShort,
               child: Text(data.title),
             ),
           ],
@@ -52,4 +48,11 @@ class FloatingBottomAppBarItem extends StatelessWidget {
       ),
     );
   }
+}
+
+class FloatingBottomAppBarItemData {
+  final LottieIconData icon;
+  final String title;
+
+  const FloatingBottomAppBarItemData({required this.title, required this.icon});
 }

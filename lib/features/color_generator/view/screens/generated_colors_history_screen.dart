@@ -1,4 +1,4 @@
-import 'package:color_generator/core/widgets/extensions/build_context_x.dart';
+import 'package:color_generator/core/theme/extensions/build_context_x.dart';
 import 'package:color_generator/features/color_generator/view/cubit/color_generator_cubit.dart';
 import 'package:color_generator/features/color_generator/view/widgets/clear_history_button.dart';
 import 'package:color_generator/features/color_generator/view/widgets/history_list_tile.dart';

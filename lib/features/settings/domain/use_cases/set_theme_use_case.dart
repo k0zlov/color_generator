@@ -5,13 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'set_theme_use_case.freezed.dart';
 
-@freezed
-abstract class SetThemeParams with _$SetThemeParams {
-  const factory SetThemeParams({
-    required SettingsTheme theme,
-  }) = _SetThemeParams;
-}
-
 class SetThemeUseCase extends UseCase<void, SetThemeParams> {
   final SettingsThemeRepository repository;
 
@@ -21,4 +14,11 @@ class SetThemeUseCase extends UseCase<void, SetThemeParams> {
   Future<Result<void>> call(SetThemeParams params) {
     return repository.saveTheme(params.theme);
   }
+}
+
+@freezed
+abstract class SetThemeParams with _$SetThemeParams {
+  const factory SetThemeParams({
+    required SettingsTheme theme,
+  }) = _SetThemeParams;
 }

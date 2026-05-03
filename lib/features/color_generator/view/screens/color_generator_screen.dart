@@ -1,4 +1,4 @@
-import 'package:color_generator/core/widgets/extensions/build_context_x.dart';
+import 'package:color_generator/core/theme/extensions/build_context_x.dart';
 import 'package:color_generator/features/color_generator/domain/entities/generated_color.dart';
 import 'package:color_generator/features/color_generator/view/cubit/color_generator_cubit.dart';
 import 'package:color_generator/utils/extensions/color_x.dart';
@@ -10,8 +10,11 @@ class ColorGeneratorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final motion = context.motion;
     final cubit = context.read<ColorGeneratorCubit>();
+
     final primaryTextStyle = context.textTheme.titleLarge ?? const TextStyle();
+
     final secondaryTextStyle =
         context.textTheme.labelLarge ?? const TextStyle();
 
@@ -29,43 +32,41 @@ class ColorGeneratorScreen extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 220),
+                  duration: motion.durationShort,
                   color: backgroundColor,
                 ),
               ),
-              SafeArea(
-                child: AnimatedAlign(
-                  duration: const Duration(milliseconds: 220),
-                  curve: Curves.easeOut,
-                  alignment: Alignment(0.0, showSecondaryText ? 0.0 : 0.03),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AnimatedDefaultTextStyle(
-                        style: primaryTextStyle.copyWith(
-                          color: backgroundColor.contrastColor,
-                        ),
-                        duration: const Duration(milliseconds: 220),
-                        child: const Text('Hello world!'),
+              AnimatedAlign(
+                duration: motion.durationShort,
+                curve: Curves.easeOut,
+                alignment: Alignment(0.0, showSecondaryText ? 0.0 : 0.03),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AnimatedDefaultTextStyle(
+                      style: primaryTextStyle.copyWith(
+                        color: backgroundColor.contrastColor,
                       ),
-                      AnimatedOpacity(
-                        opacity: showSecondaryText ? 1 : 0,
-                        duration: const Duration(milliseconds: 220),
-                        curve: Curves.easeOut,
-                        child: AnimatedDefaultTextStyle(
-                          style: secondaryTextStyle.copyWith(
-                            color: backgroundColor.contrastColor.withValues(
-                              alpha: 0.8,
-                            ),
-                          ),
-                          duration: const Duration(milliseconds: 220),
-                          child: const Text(
-                            'Tap to generate your first color!',
+                      duration: motion.durationShort,
+                      child: const Text('Hello world!'),
+                    ),
+                    AnimatedOpacity(
+                      opacity: showSecondaryText ? 1 : 0,
+                      duration: motion.durationShort,
+                      curve: Curves.easeOut,
+                      child: AnimatedDefaultTextStyle(
+                        style: secondaryTextStyle.copyWith(
+                          color: backgroundColor.contrastColor.withValues(
+                            alpha: 0.8,
                           ),
                         ),
+                        duration: motion.durationShort,
+                        child: const Text(
+                          'Tap to generate your first color!',
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Positioned.fill(

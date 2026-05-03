@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-extension ColorHexX on Color {
+extension ColorX on Color {
   static const int _hexRadix = 16;
   static const int _alphaChannelLength = 2;
   static const int _fullHexLength = 8;

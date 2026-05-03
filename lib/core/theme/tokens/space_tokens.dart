@@ -2,19 +2,17 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-enum SpaceSize {
-  none,
-  extraSmall,
-  small,
-  mediumSmall,
-  medium,
-  mediumLarge,
-  large,
-  extraLarge,
-  huge,
-}
-
 class SpaceTokens extends ThemeExtension<SpaceTokens> {
+  final double none;
+  final double extraSmall;
+  final double small;
+  final double mediumSmall;
+  final double medium;
+  final double mediumLarge;
+  final double large;
+  final double extraLarge;
+  final double huge;
+
   const SpaceTokens({
     required this.none,
     required this.extraSmall,
@@ -40,16 +38,6 @@ class SpaceTokens extends ThemeExtension<SpaceTokens> {
       huge: 48,
     );
   }
-
-  final double none;
-  final double extraSmall;
-  final double small;
-  final double mediumSmall;
-  final double medium;
-  final double mediumLarge;
-  final double large;
-  final double extraLarge;
-  final double huge;
 
   double getSpaceFromSize(SpaceSize size) {
     return switch (size) {
@@ -106,4 +94,16 @@ class SpaceTokens extends ThemeExtension<SpaceTokens> {
       huge: lerpDouble(huge, other.huge, t) ?? huge,
     );
   }
+}
+
+enum SpaceSize {
+  none,
+  extraSmall,
+  small,
+  mediumSmall,
+  medium,
+  mediumLarge,
+  large,
+  extraLarge,
+  huge,
 }
