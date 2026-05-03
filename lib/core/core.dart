@@ -2,9 +2,8 @@
 export './database/database.dart';
 export './database/tables/generated_colors.dart';
 export './failures/failure.dart';
-export './navigation/app_router.dart';
-export './navigation/navigation_route.dart';
-export './navigation/navigation_service.dart';
+export './navigation/app_route_paths.dart';
+export './navigation/create_router.dart';
 export './navigation/screen_factory.dart';
 export './notifications/notification_service.dart';
 export './resources/lottie/lottie_icons.dart';

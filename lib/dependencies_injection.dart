@@ -1,28 +1,17 @@
 import 'package:color_generator/core/core.dart';
-import 'package:color_generator/features/color_generator/data/providers/generated_color_provider.dart';
-import 'package:color_generator/features/color_generator/data/repositories/generated_color_repository_impl.dart';
-import 'package:color_generator/features/color_generator/domain/repositories/generated_color_repository.dart';
-import 'package:color_generator/features/color_generator/domain/use_cases/clear_history_use_case.dart';
-import 'package:color_generator/features/color_generator/domain/use_cases/generate_color_use_case.dart';
-import 'package:color_generator/features/color_generator/domain/use_cases/get_history_use_case.dart';
-import 'package:color_generator/features/color_generator/domain/use_cases/save_generated_color_use_case.dart';
-import 'package:color_generator/features/color_generator/view/cubit/color_generator_cubit.dart';
-import 'package:color_generator/features/settings/data/providers/settings_theme_local_provider.dart';
-import 'package:color_generator/features/settings/data/repositories/settings_theme_repository_impl.dart';
-import 'package:color_generator/features/settings/domain/repositories/settings_theme_repository.dart';
-import 'package:color_generator/features/settings/domain/use_cases/get_theme_use_case.dart';
-import 'package:color_generator/features/settings/domain/use_cases/set_theme_use_case.dart';
-import 'package:color_generator/features/settings/view/cubit/settings_cubit.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:color_generator/features/color_generator/color_generator.dart';
+import 'package:color_generator/features/settings/settings.dart';
+import 'package:flutter/widgets.dart';
+
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Get It instance
 final GetIt getIt = GetIt.instance;
 
 Future<void> registerDependencies() async {
   _database();
   await _sharedPreferences();
+  _keys();
   _router();
   _services();
   _providers();
@@ -42,18 +31,15 @@ Future<void> _sharedPreferences() async {
   getIt.registerSingleton(preferences);
 }
 
-void _router() {
+void _keys() {
   getIt.registerLazySingleton(GlobalKey<NavigatorState>.new);
+}
 
-  getIt.registerLazySingleton(
-    () => AppRouter(navigatorKey: getIt()),
-  );
+void _router() {
+  getIt.registerLazySingleton(() => createRouter(navigatorKey: getIt()));
 }
 
 void _services() {
-  getIt.registerLazySingleton<NavigationService>(
-    () => NavigationServiceImpl(navigatorKey: getIt()),
-  );
   getIt.registerLazySingleton<NotificationService>(NotificationServiceImpl.new);
 }
 

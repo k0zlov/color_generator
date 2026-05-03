@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:color_generator/core/navigation/app_router.dart';
 import 'package:color_generator/core/notifications/notification_service.dart';
 import 'package:color_generator/core/theme/app_theme.dart';
 import 'package:color_generator/core/theme/extensions/build_context_x.dart';
@@ -18,37 +17,37 @@ class Application extends StatefulWidget {
   });
 
   final NotificationService notificationService;
-  final AppRouter router;
+  final GoRouter router;
 
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
-  GoRouter? router;
+  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey = GlobalKey();
+
   StreamSubscription<String>? _errorSubscription;
 
   @override
   void initState() {
     super.initState();
 
-    router = widget.router();
-
     _errorSubscription = widget.notificationService.errorStream.listen(
       (message) {
-        final BuildContext? context = widget.router.navigatorKey.currentContext;
+        final ScaffoldMessengerState? state =
+            _scaffoldMessengerKey.currentState;
 
-        if (context == null || !context.mounted) return;
+        if (state == null || !context.mounted) return;
 
-        _snowNotification(context, message);
+        _showNotification(state, message);
       },
     );
   }
 
-  void _snowNotification(BuildContext context, String message) {
-    final colorScheme = context.theme.colorScheme;
+  void _showNotification(ScaffoldMessengerState state, String message) {
+    final ColorScheme colorScheme = context.theme.colorScheme;
 
-    ScaffoldMessenger.of(context).showSnackBar(
+    state.showSnackBar(
       SnackBar(
         backgroundColor: colorScheme.errorContainer,
         behavior: SnackBarBehavior.floating,
@@ -73,8 +72,9 @@ class _ApplicationState extends State<Application> {
 
         return MaterialApp.router(
           title: 'Color generator',
+          scaffoldMessengerKey: _scaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
-          routerConfig: router,
+          routerConfig: widget.router,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
           themeMode: themeMode,
